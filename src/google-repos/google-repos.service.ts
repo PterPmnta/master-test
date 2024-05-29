@@ -6,40 +6,61 @@ export class GoogleReposService {
   async getBestRepos() {
     try {
 
-      const dataReturned = this.requestRepositories();
+      const dataObtenida = this.requestRepositories();
 
-      return dataReturned;
+      return dataObtenida;
     } catch (error) {
       throw new error('Error fetching repositories:', error)
     }
   }
 
   async requestRepositories() {
-    const url = `https://api.github.com/users/${process.env.GITHUB_USER}/repos?per_page=100&page=`;
+
+    const urlBase = `https://api.github.com/users`;
+    const userData = `${process.env.GITHUB_USER}/repos`;
+    const pageOptions = `per_page=${process.env.PER_PAGE}&page=`;
+
+    const fullURL = `${urlBase}/${userData}?${pageOptions}`
     const headers = { Authorization: `token ${process.env.GITHUB_TOKEN}` }
+
     let page = 1;
-    let repos = []
+    let reposTotales = []
+    const maxPaginasPorLote = 5;
+
     try {
 
       while (true) {
-        const response = await fetch(url + page, { headers });
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
+        const agruparPromesas = [];
+        for (let inicio = 0; inicio < maxPaginasPorLote; inicio++) {
+          agruparPromesas.push(fetch(fullURL + (page + inicio), { headers }));
         }
 
-        const repo = await response.json();
+        const promesasObtenidas = await Promise.all(agruparPromesas);
 
-        repos = repos.concat(repo)
-          .sort((first_repo, second_repo) => second_repo.stargazers_count - first_repo.stargazers_count)
-          .slice(0, 10)
+        let loteRepositorio = [];
 
-        if (repo.length < 100) {
+        for (const promesa of promesasObtenidas) {
+          if (!promesa.ok) {
+            throw new Error(`Error: ${promesa.status}`);
+          }
+          const repo = await promesa.json();
+          loteRepositorio = loteRepositorio.concat(repo);
+        }
+
+        reposTotales = reposTotales.concat(loteRepositorio);
+
+        page += maxPaginasPorLote;
+
+        if (loteRepositorio.length < 100 * maxPaginasPorLote) {
           break;
         }
-        page++;
       }
 
-      return repos;
+      reposTotales = reposTotales
+        .sort((first_repo, second_repo) => second_repo.stargazers_count - first_repo.stargazers_count)
+        .slice(0, 10);
+
+      return reposTotales;
 
     } catch (error) {
       throw new error('Error fetching repositories:', error)
