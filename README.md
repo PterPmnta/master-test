@@ -22,52 +22,58 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
+## Instalacion
+
+Instalar primero los paquetes haciendo uso del comando a continuacion 
 
 ```bash
 $ npm install
 ```
 
-## Running the app
+## Archivo .env.template
+
+El archivo debe ser renombrado, y que pase solo a llamarse `.env`.
+Esto debe hacerse para poder garantizar el funcionamiento ya que esta el token para poder hacer la consulta al repositorio de google en **GitHub**
+
+## Ejecutar la App
 
 ```bash
-# development
-$ npm run start
 
 # watch mode
 $ npm run start:dev
 
-# production mode
-$ npm run start:prod
 ```
 
-## Test
+## Ejecircio 1
 
-```bash
-# unit tests
-$ npm run test
+La carpeta llamada `google-repos` contiene lo relacionado con el ejercicio 1, usar la siguiente `url` en alguna cliente REST API para poder ver el resultado
 
-# e2e tests
-$ npm run test:e2e
+[http://localhost:3000/google-repos](http://localhost:3000/google-repos)
 
-# test coverage
-$ npm run test:cov
-```
+## Ejercicio 2
 
-## Support
+La carpeta tiene el nombre de `2-nomneclatura`, donde la idea principal era volver el codigo legible de una manera que pueda ser entendible por cualquier persona que vaya a trabajar sobre dicho codigo.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Ejercicio 3
 
-## Stay in touch
+La carpeta se llama `pensamiento-logico`. Hcaer uso de una herramienta para consumir REST API, usar la `url` a continuacion, y remover `[numero_entero_positivo]` usando un numero para obtener el resultado de los impares a obtener.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+[http://localhost:3000/pensamiento-logico/[numero_entero_positivo]](http://localhost:3000/pensamiento-logico/[numero_entero_positivo])
 
-## License
+## Ejercicio 4
 
-Nest is [MIT licensed](LICENSE).
+Un pdf contenido dentro de la carpeta `4-entidad_relacion`
+
+
+## Ejercicio 5
+
+Un pdf contenido dentro de la carpeta `5-arquitectura`
+
+
+## Ejercicio 6
+
+Un pdf contenido dentro de la carpeta `6-nomenclatura`
+
+
